@@ -1,9 +1,45 @@
-[gd_scene format=3 uid="uid://cfvg07hkph7yb"]
+[gd_scene load_steps=6 format=3 uid="uid://cfvg07hkph7yb"]
+
+[ext_resource type="Texture2D" uid="uid://2jjg3t2i41io" path="res://pixil-frame-0.png" id="1_50bi0"]
+[ext_resource type="Script" path="res://player.gd" id="1_jwfmq"]
+
+[sub_resource type="Gradient" id="Gradient_oyg4b"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(9.62615e-07, 0.703732, 0.884426, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hi6pg"]
+gradient = SubResource("Gradient_oyg4b")
+fill_from = Vector2(0.472477, 0.990826)
+fill_to = Vector2(0.463303, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_uetjj"]
+a = Vector2(5, 0)
+b = Vector2(-5, 0)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scale = Vector2(2, 2)
+scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(-326, -433)
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(358, 346)
+rotation = 3.14159
+scale = Vector2(18.4493, 31.8085)
+texture = SubResource("GradientTexture2D_hi6pg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(341, 184)
+scale = Vector2(10, 10)
+script = ExtResource("1_jwfmq")
+
+[node name="PlayerSprite" type="Sprite2D" parent="Player"]
+texture_filter = 1
+texture = ExtResource("1_50bi0")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="Player"]
+visible = false
+shape = SubResource("SegmentShape2D_uetjj")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
